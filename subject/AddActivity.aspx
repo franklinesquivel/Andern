@@ -32,9 +32,15 @@
             <asp:HiddenField ID="hfSubjectType" runat="server"/>
 
             <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
-                <asp:DropDownList ID="ddlSubject" runat="server" OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged">
-                    <asp:ListItem value="0" disabled="true" selected="True">[Materia]</asp:ListItem>
+                <asp:DropDownList ID="ddlSubject"
+                    AppendDataBoundItems="true"
+                    OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged"
+                    DataSourceID="dsSubject"
+                    DataTextField="cmbText" DataValueField="idSubject"
+                    runat="server" >
+                    <asp:ListItem Text="[Materia]" Value="0" />
                 </asp:DropDownList>
+                <asp:SqlDataSource ID="dsSubject" runat="server" ConnectionString="<%$ ConnectionStrings:AndernConnectionString %>" SelectCommand="SELECT idSubject, Concat('[', idSubject, '] - ', name) as cmbText FROM Subject"></asp:SqlDataSource>
                 <asp:Label AssociatedControlID="ddlSubject" Text="Selecciona una materia" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="customDdlValue" runat="server"
                     InitialValue = "0"
