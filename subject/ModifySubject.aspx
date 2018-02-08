@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModifySubject.aspx.cs" Inherits="subject_ModifySubject" %>
 
+<%@ Register Src="~/Menu.ascx" TagPrefix="uc" TagName="Menu" %>
+
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,26 +19,9 @@
     <script src="/js/init.js"></script>
 </head>
 <body class="grey lighten-4">
-    <nav>
-        <div class="nav-wrapper deep-purple darken-1">
-            <a href="#!" class="brand-logo">Logo</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/">Inicio <i class="material-icons left">home</i></a></li>
-                <li><a href="/subject/AddSubject.aspx">Registro de materias <i class="material-icons left">add</i></a></li>
-                <li><a href="/subject/ListSubject.aspx">Lista de materias <i class="material-icons left">list</i></a></li>
-                <li><a href="/subject/AddActivity.aspx">Registro de actividades <i class="material-icons left">schedule</i></a></li>
-                <li  class="active"><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-                <li><a href="/">Inicio <i class="material-icons">home</i></a></li>
-                <li><a href="subject/AddSubject.aspx">Registro de materias <i class="material-icons">add</i></a></li>
-                <li><a href="subject/ListSubject.aspx">Lista de materias <i class="material-icons">list</i></a></li>
-                <li><a href="subject/AddActivity.aspx">Registro de actividades <i class="material-icons">schedule</i></a></li>
-                <li  class="active"><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
-            </ul>
-        </div>
-    </nav>
+    
+    <uc:Menu runat="server" ID="Menu" />
+
     <br />
     <div class="container">
         <div class="row">
