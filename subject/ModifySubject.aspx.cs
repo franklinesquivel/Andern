@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class subject_AddSubject : System.Web.UI.Page
+public partial class subject_ModifySubject : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-    protected void CustomValidator1_ServerValidate1(object source, ServerValidateEventArgs args)
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
     {
         bool response = false;
         if (chkLab.Checked)

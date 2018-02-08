@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddSubject.aspx.cs" Inherits="subject_AddSubject" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModifySubject.aspx.cs" Inherits="subject_ModifySubject" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Proyecto Ändern</title>
+    <title>Proyecto Andern</title>
     <link href="/css/materialize.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" initial-scale="1.0" />
 
@@ -16,24 +16,23 @@
     <script src="/js/init.js"></script>
 </head>
 <body class="grey lighten-4">
-
     <nav>
         <div class="nav-wrapper deep-purple darken-1">
             <a href="#!" class="brand-logo">Logo</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">Inicio <i class="material-icons left">home</i></a></li>
-                <li class="active"><a href="/subject/AddSubject.aspx">Registro de materias <i class="material-icons left">add</i></a></li>
+                <li><a href="/subject/AddSubject.aspx">Registro de materias <i class="material-icons left">add</i></a></li>
                 <li><a href="/subject/ListSubject.aspx">Lista de materias <i class="material-icons left">list</i></a></li>
                 <li><a href="/subject/AddActivity.aspx">Registro de actividades <i class="material-icons left">schedule</i></a></li>
-                <li><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
+                <li  class="active"><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li class="active"><a href="/">Inicio <i class="material-icons">home</i></a></li>
+                <li><a href="/">Inicio <i class="material-icons">home</i></a></li>
                 <li><a href="subject/AddSubject.aspx">Registro de materias <i class="material-icons">add</i></a></li>
                 <li><a href="subject/ListSubject.aspx">Lista de materias <i class="material-icons">list</i></a></li>
                 <li><a href="subject/AddActivity.aspx">Registro de actividades <i class="material-icons">schedule</i></a></li>
-                <li><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
+                <li  class="active"><a href="/subject/ModifySubject.aspx">Modificar Materia <i class="material-icons left">update</i></a></li>
             </ul>
         </div>
     </nav>
@@ -43,22 +42,20 @@
             <form id="form1" runat="server">
                 <div class="col l6 m8 s10 offset-l3 offset-m2 offset-s1">
                     <div class="row s12 center-align">
-                        <blockquote> <h4>Registrar Materia.</h4> </blockquote>
+                        <blockquote> <h4>Modificar Materia.</h4> </blockquote>
                     </div>
                     <div class="row s12  red accent-4">
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="List" ForeColor="white"/>
                     </div>
                     <div class="row input-field">
-                        <label for="txtCode">Código de la materia</label>
-                        <asp:TextBox runat="server" ID="txtCode"></asp:TextBox>
+                        <asp:ListBox ID="cmbCode" runat="server">
+                            <asp:ListItem value="1" Selected="True">AAA222</asp:ListItem>
+                        </asp:ListBox>
+                        <label>Código de Materia</label>
                         <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator1" 
                             runat="server" 
-                            ControlToValidate="txtCode"
-                            ErrorMessage="Ingrese un código"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-                            ErrorMessage="El formato del código ingresado es incorrecto" ControlToValidate="txtCode"
-                            ValidationExpression="^([A-Z]|[a-z]){3}[0-9]{3}$" Display="None">
-                        </asp:RegularExpressionValidator>
+                            ControlToValidate="cmbCode"
+                            ErrorMessage="Escoga uno materia"></asp:RequiredFieldValidator>
                     </div>
                     <div class="row input-field">
                         <label for="txtName">Nombre de la materia</label>
@@ -85,7 +82,7 @@
                             ErrorMessage="Ingrese la cantidad de UV"></asp:RequiredFieldValidator>
                         <asp:CustomValidator ID="CustomValidator1" 
                             runat="server" ErrorMessage="Según el tipo de materia las UV no son válidas" Display="None" Text="Según el tipo de materia las UV no son válidas"
-                            OnServerValidate="CustomValidator1_ServerValidate1" ControlToValidate="txtUV"></asp:CustomValidator>
+                           OnServerValidate="CustomValidator1_ServerValidate" ControlToValidate="txtUV"></asp:CustomValidator>
                     </div>
                     <div class="row input-field">
                         <asp:ListBox ID="cmbPre" runat="server" multiple="" SelectionMode="Multiple">
@@ -114,7 +111,7 @@
                         <label for="filled-in-box"></label>
                     </div>
                     <div class="row center-align">
-                        <asp:Button ID="btnSend" OnClick="btnSend_Click" CssClass="waves-effect waves-light btn" runat="server"  Text="Registrar" />
+                        <asp:Button ID="btnSend" CssClass="waves-effect waves-light btn" runat="server"  Text="Registrar" />
                     </div>
                 </div>
                 
