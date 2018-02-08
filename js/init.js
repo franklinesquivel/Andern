@@ -10,6 +10,10 @@
             $(".button-collapse").sideNav();
         }
 
+        if ($('select').length > 0) {
+            $('select').material_select();
+        }
+
     })
 
 })();
