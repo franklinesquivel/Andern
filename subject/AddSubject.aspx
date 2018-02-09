@@ -74,7 +74,7 @@
                     </div>
                     <div class="row input-field">
                         <asp:ListBox ID="cmbPre" runat="server">
-                            <asp:ListItem value="1" Selected="True">Hola,</asp:ListItem>
+                            <asp:ListItem value="0" Selected="True">Bachillerato</asp:ListItem>
                             <asp:ListItem value="2">Como</asp:ListItem>
                             <asp:ListItem value="3">Estas?</asp:ListItem>
                         </asp:ListBox>
@@ -105,6 +105,9 @@
                 
             </form>
         </div>
+        <div class="row" id="result" runat="server">   
+
+            </div>
     </div>
 </body>
 </html>

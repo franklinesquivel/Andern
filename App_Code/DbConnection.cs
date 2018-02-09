@@ -11,7 +11,7 @@ using System.Web;
 /// </summary>
 public class DbConnection
 {
-    private static string connectionString = "Data Source=DESKTOP-JI5137H;Initial Catalog=Andern;Integrated Security=True";
+    private static string connectionString = "Data Source=;Initial Catalog=Andern;Integrated Security=True";
     private static SqlConnection connection;
     private static SqlCommand cmd;
     private static SqlDataReader dr;
@@ -39,7 +39,7 @@ public class DbConnection
         }
     }
 
-    public string MakeScalar(string query) //Devuelve la primera columna de la primera fila de una consulta
+    public static string MakeScalar(string query) //Devuelve la primera columna de la primera fila de una consulta
     {
         string response = "";
         try
@@ -47,12 +47,12 @@ public class DbConnection
             connection = new SqlConnection(connectionString);
             cmd = new SqlCommand(query, connection);
             cmd.Connection.Open();
-            response = (string) cmd.ExecuteScalar();
+            response = cmd.ExecuteScalar().ToString();
             cmd.Connection.Close();
         }
         catch (Exception e)
         {
-            response = "";
+            response = "0";
         }
         return response;
     }
