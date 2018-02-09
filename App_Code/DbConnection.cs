@@ -72,20 +72,25 @@ public class DbConnection
                 while (dr.Read())
                 {
                     ArrayList auxData = new ArrayList();
-                    for (int i = 0; i < dr.FieldCount; i++)
+                    if(dr.FieldCount == 1)
                     {
-                        auxData.Add(dr[i].ToString());
-                    }
+                        data.Add(dr[0].ToString());
+                    }else
+                    {
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+                            auxData.Add(dr[i].ToString());
+                        }
 
-                    data.Add(auxData);
+                        data.Add(auxData);
+                    }
                 }
 
                 return data;
             }
             else
-                data = new ArrayList();
             {
-
+                data = new ArrayList();
             }
             cmd.Connection.Close();
             return data;

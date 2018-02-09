@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -33,5 +35,11 @@ public class SubjectModel
     {
         string sql = "SELECT COUNT(*) FROM Subject WHERE idSubject ='"+ idSubject +"'";
         return (int.Parse(DbConnection.MakeScalar(sql)) > 0) ? false : true;
+    }
+
+    public static String subjectType(String _idSubject)
+    {
+        ArrayList aux = DbConnection.getDbData("SELECT type FROM Subject WHERE idSubject = '" + _idSubject + "'");
+        return (String)aux[0];
     }
 }

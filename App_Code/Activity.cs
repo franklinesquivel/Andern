@@ -15,6 +15,13 @@ public class Activity
     private String idType;
     private String idSubject;
 
+    public int IdActivity
+    {
+        get
+        {
+            return idActivity;
+        }
+    }
     public string Name
     {
         get
@@ -80,10 +87,25 @@ public class Activity
         }
     }
 
+    public Activity(int _idActivity)
+    {
+
+    }
+
     public Activity()
     {
-        //
-        // TODO: Agregar aquí la lógica del constructor
-        //
+        idActivity = 0;
+    }
+
+    public void setData(String _name, double _percentage, String _file, String _idType, String _idSubject)
+    {
+        if (idActivity != 0)
+        {
+            Name = _name;
+            Percentage = _percentage;
+            File = _file;
+            IdType = _idType;
+            IdSubject = _idSubject;
+        }
     }
 }

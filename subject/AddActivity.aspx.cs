@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class subject_AddActivity : System.Web.UI.Page
 {
+    ActivityModel auxObj = new ActivityModel();
     protected void Page_Load(object sender, EventArgs e)
     {
         if((!IsPostBack))
@@ -20,8 +23,13 @@ public partial class subject_AddActivity : System.Web.UI.Page
 
     protected void btnRegisterData_Click(object sender, EventArgs e)
     {
-        String path = Server.MapPath("~/archivos/");
-        //fucFile.PostedFile.SaveAs(path + fucFile.FileName);
+        if (Page.IsValid)
+        {
+            String path = Server.MapPath("~/archivos/");
+            //fucFile.PostedFile.SaveAs(path + fucFile.FileName);
+
+            
+        }
     }
 
     protected void fileTypeValidate(object source, ServerValidateEventArgs args)
@@ -50,6 +58,7 @@ public partial class subject_AddActivity : System.Web.UI.Page
     {
         args.IsValid = ddlSubject.SelectedIndex == 0;
     }
+
     protected void positiveValidate(object source, ServerValidateEventArgs args)
     {
         double auxDbl = 0;
@@ -61,17 +70,27 @@ public partial class subject_AddActivity : System.Web.UI.Page
 
     protected void percentageValidate(object source, ServerValidateEventArgs args)
     {
-        double auxDbl = 0, auxDbl2 = 0;
+        double auxDbl = 0;
         String auxStr = txtPercentage.Text;
         Double.TryParse(auxStr, out auxDbl);
-        auxStr = hfPercentage.Value;
-        Double.TryParse(auxStr, out auxDbl2);
 
-        args.IsValid = auxDbl + auxDbl2 > 100;
+        args.IsValid = ActivityModel.valPercentage(ddlSubject.SelectedValue, auxDbl);
     }
 
     protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if(ddlSubject.SelectedIndex != 0)
+        {
+            if(SubjectModel.subjectType(ddlSubject.SelectedValue) == "L")
+            {
+                ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "';");
+                double auxP = 0;
+                double.TryParse((String) auxPA[0], out auxP);
+                rdbL.Enabled = true;
+                rdbT.Enabled = true;
 
+                customPercentage.ErrorMessage = "Ingresa una cantidad que no pase el 100%. Disponible: " + (auxP * 100) + "%.";
+            }
+        }
     }
 }

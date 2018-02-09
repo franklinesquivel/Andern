@@ -33,6 +33,7 @@
 
             <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:DropDownList ID="ddlSubject"
+                    AutoPostBack="true"
                     AppendDataBoundItems="true"
                     OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged"
                     DataSourceID="dsSubject"
@@ -50,11 +51,10 @@
                 </asp:RequiredFieldValidator>
             </div>
 
-            <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
+            <div class="col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:Label Text="La actividad será asignada al grupo de: " runat="server"></asp:Label><br />
                 <asp:RadioButton ID="rdbT" Text="Teoría" Value="T" GroupName="subjectType" runat="server" /><br />
-                <asp:RadioButton ID="rdbL" Text="Laboratorio" Value="L" GroupName="subjectType" runat="server" />
-                <br /><br />
+                <asp:RadioButton ID="rdbL" Text="Laboratorio" Value="L" GroupName="subjectType" runat="server" /><br /><br />
             </div>
             <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
@@ -87,8 +87,7 @@
                 <asp:CustomValidator ID="customPercentage" runat="server"
                     OnServerValidate="percentageValidate"
                     ControlToValidate="txtPercentage"
-                    Display="Dynamic"
-                    ErrorMessage="Ingresa una cantidad que no pase el 100%.">
+                    Display="Dynamic">
                 </asp:CustomValidator>
             </div>
 
