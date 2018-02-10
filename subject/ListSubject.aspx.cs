@@ -22,7 +22,7 @@ public partial class subject_ListSubject : System.Web.UI.Page
         htmlTable.AppendLine("<th>Tipo</th>");
         htmlTable.AppendLine("<th>UV's</th>");
         htmlTable.AppendLine("<th>Prerequisito</th>");
-        htmlTable.AppendLine("<th>Acciones</th>");
+        htmlTable.AppendLine("<th colspan='2'>Acciones</th>");
         htmlTable.AppendLine("</thead>");
         htmlTable.AppendLine("<tbody>");
         ArrayList data = DbConnection.getDbData("SELECT * FROM Subject;");
@@ -37,7 +37,8 @@ public partial class subject_ListSubject : System.Web.UI.Page
             htmlTable.AppendLine("<td>" + (((String)row[6]).Equals("T") ? "Teórica" : "Práctica") + "</td>");
             htmlTable.AppendLine("<td>" + (String) row[1] + "</td>");
             htmlTable.AppendLine("<td>" + (((String)row[2]).Equals("") ? "BACH" : (String)row[6]) + "</td>");
-            htmlTable.AppendLine("<td></td>");
+            htmlTable.AppendLine("<td><a href='/subject/updateSubject.aspx?idSubject=" + (String)row[0] + "'>Modificar</a></td>");
+            htmlTable.AppendLine("<td><a href='/subject/addActivity.aspx?idSubject=" + (String)row[0] + "'>Añadir Actividad</a></td>");
 
             htmlTable.AppendLine("</tr>");
         }

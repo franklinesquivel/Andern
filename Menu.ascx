@@ -36,7 +36,7 @@
 
 <ul id="dpdSubject" class="dropdown-content">
     <li><a href="/subject/AddSubject.aspx">Registrar <i class="material-icons left">add</i></a></li>
-    <li><a href="/subject/ListSubject.aspx">Ver <i class="material-icons left">remove_red_eye</i></a></li>
+    <li><a href="/subject/ListSubject.aspx">Listar <i class="material-icons left">remove_red_eye</i></a></li>
     <li><a href="/subject/UpdateSubject.aspx">Modificar <i class="material-icons left">edit</i></a></li>
 </ul>
 <nav>

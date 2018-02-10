@@ -19,6 +19,17 @@ public partial class subject_AddActivity : System.Web.UI.Page
             rdbL.Enabled = false;
             rdbT.Enabled = false;
         }
+
+        if(Request.QueryString["idSubject"] != null)
+        {
+            ddlSubject.SelectedValue = Request.QueryString["idSubject"];
+
+            if (SubjectModel.subjectType(Request.QueryString["idSubject"]) == "L")
+            {
+                rdbL.Enabled = true;
+                rdbT.Enabled = true;
+            }
+        }
     }
 
     protected void btnRegisterData_Click(object sender, EventArgs e)
