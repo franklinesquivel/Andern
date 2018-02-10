@@ -53,8 +53,10 @@
 
             <div class="col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:Label Text="La actividad será asignada al grupo de: " runat="server"></asp:Label><br />
-                <asp:RadioButton ID="rdbT" Text="Teoría" Value="T" GroupName="subjectType" runat="server" /><br />
-                <asp:RadioButton ID="rdbL" Text="Laboratorio" Value="L" GroupName="subjectType" runat="server" /><br /><br />
+                <asp:RadioButtonList ID="rdbSubjectType" AutoPostBack="true" OnSelectedIndexChanged="rdbSubjectType_SelectedIndexChanged" runat="server">
+                    <asp:ListItem ID="rdbT" Text="Teoría" Value="T" runat="server" />
+                    <asp:ListItem ID="rdbL" Text="Laboratorio" Value="L" runat="server"/>
+                </asp:RadioButtonList>
             </div>
             <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
@@ -70,7 +72,7 @@
 
             <div class="input-field col s10 m6 l6 offset-s1 offset-m3 offset-l3">
                 <asp:TextBox ID="txtPercentage" TextMode="Number" runat="server"></asp:TextBox>
-                <asp:Label AssociatedControlID="txtPercentage" Text="Porcentaje de la actividad" runat="server"></asp:Label>
+                <asp:Label ID="lblPercentage" AssociatedControlID="txtPercentage" Text="Porcentaje de la actividad" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator
                     CssClass="error-tag"
                     ErrorMessage="Debes ingresar un valor"
@@ -82,12 +84,13 @@
                     OnServerValidate="positiveValidate"
                     ControlToValidate="txtPercentage"
                     Display="Dynamic"
-                    ErrorMessage="Ingresa un porcentaje válido!.">
+                    ErrorMessage="Ingresa un valor positivo!">
                 </asp:CustomValidator>
                 <asp:CustomValidator ID="customPercentage" runat="server"
                     OnServerValidate="percentageValidate"
                     ControlToValidate="txtPercentage"
-                    Display="Dynamic">
+                    Display="Dynamic"
+                    ErrorMessage="Ingresa un porcentaje válido!">
                 </asp:CustomValidator>
             </div>
 

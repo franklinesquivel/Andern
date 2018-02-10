@@ -101,4 +101,20 @@ public class DbConnection
             return new ArrayList();
         }
     }
+
+    public static SqlCommand getCommand(String query)
+    {
+        connection = new SqlConnection(connectionString);
+        return new SqlCommand(query, connection);
+    }
+
+    public static bool executeCmdIUD(SqlCommand _cmd)
+    {
+        bool response = false;
+        _cmd.Connection.Open();
+        response = (_cmd.ExecuteNonQuery() > 0) ? true : false;
+        _cmd.Connection.Close();
+
+        return response;
+    }
 }

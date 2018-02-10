@@ -15,7 +15,7 @@ public partial class subject_AddActivity : System.Web.UI.Page
     {
         if((!IsPostBack))
         {
-            rdbT.Checked = true;
+            rdbSubjectType.SelectedIndex = 0;
             rdbL.Enabled = false;
             rdbT.Enabled = false;
         }
@@ -23,18 +23,33 @@ public partial class subject_AddActivity : System.Web.UI.Page
 
     protected void btnRegisterData_Click(object sender, EventArgs e)
     {
+        
         if (Page.IsValid)
         {
-            String path = Server.MapPath("~/archivos/");
-            //fucFile.PostedFile.SaveAs(path + fucFile.FileName);
+            String path = Server.MapPath("~/files/");
+            String scriptstring = "";
+            String auxStr = txtPercentage.Text;
+            double auxP = 0;
+            Double.TryParse(auxStr, out auxP);
+            Activity newAc = new Activity(txtName.Text, auxP, fucFile.PostedFile.FileName, rdbSubjectType.SelectedValue, ddlSubject.SelectedValue);
 
-            
+            if (newAc.Insert())
+            {
+                scriptstring = "Materialize.toast('La actividad ha sido registrada éxitosamente', 2000, '', function(){location.href = '/subject/AddActivity.aspx'});";
+                fucFile.PostedFile.SaveAs(path + fucFile.FileName);
+            }
+            else
+            {
+                scriptstring = "Materialize.toast(Ha ocurrido un error :(', 2000);";
+
+            }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirmLog", scriptstring, true);
+
         }
     }
 
     protected void fileTypeValidate(object source, ServerValidateEventArgs args)
     {
-        String path = Server.MapPath("~/archivos/");
         String fileExtension = Path.GetExtension(fucFile.PostedFile.FileName).Substring(1);
         bool aux = true;
 
@@ -43,13 +58,7 @@ public partial class subject_AddActivity : System.Web.UI.Page
         {
             aux = false;
         }
-
-        ////Validación del tamaño del archivo
-        //if (fucFile.PostedFile.ContentLength > 2097152) //Mayor a 2MB -> ContentLength retorna en Bytes
-        //{
-        //    aux = false;
-        //}
-
+        
         args.IsValid = aux;
     }
 
@@ -65,7 +74,7 @@ public partial class subject_AddActivity : System.Web.UI.Page
         String auxStr = txtPercentage.Text;
         Double.TryParse(auxStr, out auxDbl);
 
-        args.IsValid = auxDbl <= 0;
+        args.IsValid = (auxDbl > 0);
     }
 
     protected void percentageValidate(object source, ServerValidateEventArgs args)
@@ -74,23 +83,36 @@ public partial class subject_AddActivity : System.Web.UI.Page
         String auxStr = txtPercentage.Text;
         Double.TryParse(auxStr, out auxDbl);
 
-        args.IsValid = ActivityModel.valPercentage(ddlSubject.SelectedValue, auxDbl);
+        args.IsValid = ActivityModel.valPercentage(ddlSubject.SelectedValue, rdbSubjectType.SelectedValue, auxDbl);
     }
 
     protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
     {
         if(ddlSubject.SelectedIndex != 0)
         {
-            if(SubjectModel.subjectType(ddlSubject.SelectedValue) == "L")
+            ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "' AND idType = '" + rdbSubjectType.SelectedValue + "';");
+            double auxP = 0;
+            double.TryParse((String)auxPA[0], out auxP);
+            lblPercentage.Text = "Porcentaje de la actividad [Disponible: " + (100 - (auxP * 100)) + "%].";
+
+            if (SubjectModel.subjectType(ddlSubject.SelectedValue) == "L")
             {
-                ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "';");
-                double auxP = 0;
-                double.TryParse((String) auxPA[0], out auxP);
                 rdbL.Enabled = true;
                 rdbT.Enabled = true;
-
-                customPercentage.ErrorMessage = "Ingresa una cantidad que no pase el 100%. Disponible: " + (auxP * 100) + "%.";
             }
+        }else
+        {
+            rdbSubjectType.SelectedIndex = 0;
+            rdbL.Enabled = false;
+            rdbT.Enabled = false;
         }
+    }
+
+    protected void rdbSubjectType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "' AND idType = '" + rdbSubjectType.SelectedValue + "';");
+        double auxP = 0;
+        double.TryParse((String)auxPA[0], out auxP);
+        lblPercentage.Text = "Porcentaje de la actividad [Disponible: " + (100 - (auxP * 100)) + "%].";
     }
 }

@@ -21,6 +21,11 @@ public class Activity
         {
             return idActivity;
         }
+
+        set
+        {
+            idActivity = value;
+        }
     }
     public string Name
     {
@@ -92,20 +97,17 @@ public class Activity
 
     }
 
-    public Activity()
+    public Activity(String _name, double _percentage, String _file, String _idType, String _idSubject)
     {
-        idActivity = 0;
+        name = _name;
+        percentage = _percentage;
+        file = _file;
+        idType = _idType;
+        idSubject = _idSubject;
     }
 
-    public void setData(String _name, double _percentage, String _file, String _idType, String _idSubject)
+    public bool Insert()
     {
-        if (idActivity != 0)
-        {
-            Name = _name;
-            Percentage = _percentage;
-            File = _file;
-            IdType = _idType;
-            IdSubject = _idSubject;
-        }
+        return ActivityModel.insertActivity(this);
     }
 }
