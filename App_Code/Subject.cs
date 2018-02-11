@@ -12,7 +12,7 @@ public class Subject
     private string idSubject; //Codigo
     private string name; //Nombre
     private int uv; //Unidades Valorativas
-    private int prerequisite; //Prerrequisito
+    private string prerequisite; //Prerrequisito
     private string description; //Descripcion
     private int course; //Ciclo
     private char type; //Tipo
@@ -40,7 +40,7 @@ public class Subject
             name = value;
         }
     }
-    public int Prerequisite
+    public string Prerequisite
     {
         get
         {
@@ -102,7 +102,7 @@ public class Subject
     }
     //FIN ATRIBUTOS
 
-    public Subject(string idSubject, string name, int uv, int prerequisite, string description, int course, char type)
+    public Subject(string idSubject, string name, int uv, string prerequisite, string description, int course, char type)
     { //CONSTRUCTOR
         this.idSubject = idSubject;
         this.name = name;
@@ -113,6 +113,10 @@ public class Subject
         this.type = type;
     }
 
+    public Subject(string idSubject)
+    {
+        this.idSubject = idSubject;
+    }
 
     //INICIO DE MÉTODOS
     public bool Insert()
@@ -125,6 +129,18 @@ public class Subject
     {
         SubjectModel nuevoModelo = new SubjectModel();
         return nuevoModelo.Verify(this.idSubject);
+    }
+
+    public bool Update()
+    {
+        SubjectModel nuevoModelo = new SubjectModel();
+        return nuevoModelo.Update(this.idSubject, this.name, this.uv, this.prerequisite, this.description, this.course, this.type);
+    }
+
+    public bool Delete()
+    {
+        SubjectModel nuevoModelo = new SubjectModel();
+        return nuevoModelo.Delete(this.idSubject);
     }
 
     //FIN MÉTODOS

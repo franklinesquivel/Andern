@@ -34,16 +34,6 @@
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="List" ForeColor="white"/>
                     </div>
                     <div class="row input-field">
-                        <asp:ListBox ID="cmbCode" runat="server">
-                            <asp:ListItem value="1" Selected="True">AAA222</asp:ListItem>
-                        </asp:ListBox>
-                        <label>Código de Materia</label>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator1" 
-                            runat="server" 
-                            ControlToValidate="cmbCode"
-                            ErrorMessage="Escoga uno materia"></asp:RequiredFieldValidator>
-                    </div>
-                    <div class="row input-field">
                         <label for="txtName">Nombre de la materia</label>
                         <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
                         <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator2" 
@@ -71,10 +61,8 @@
                            OnServerValidate="CustomValidator1_ServerValidate" ControlToValidate="txtUV"></asp:CustomValidator>
                     </div>
                     <div class="row input-field">
-                        <asp:ListBox ID="cmbPre" runat="server" multiple="" SelectionMode="Multiple">
-                            <asp:ListItem value="1" Selected="True">Hola,</asp:ListItem>
-                            <asp:ListItem value="2">Como</asp:ListItem>
-                            <asp:ListItem value="3">Estas?</asp:ListItem>
+                        <asp:ListBox ID="cmbPre" runat="server">
+                            
                         </asp:ListBox>
                         <label>Prerrequisitos</label>
                         <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator5" 
@@ -97,11 +85,13 @@
                         <label for="filled-in-box"></label>
                     </div>
                     <div class="row center-align">
-                        <asp:Button ID="btnSend" CssClass="waves-effect waves-light btn" runat="server"  Text="Registrar" />
+                        <asp:Button ID="btnSend" OnClick="btnSend_Click" CssClass="waves-effect waves-light btn" runat="server"  Text="Registrar" />
                     </div>
                 </div>
-                
             </form>
+            <div class="row  col l6 m8 s10 offset-l3 offset-m2 offset-s1" id="result" runat="server">
+
+            </div>
         </div>
     </div>
 </body>

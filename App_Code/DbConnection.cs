@@ -11,7 +11,7 @@ using System.Web;
 /// </summary>
 public class DbConnection
 {
-    private static string connectionString = "Data Source=;Initial Catalog=Andern;Integrated Security=True";
+    private static string connectionString = "Data Source=DESKTOP-2MTLJ1V;Initial Catalog=Andern;Integrated Security=True";
     private static SqlConnection connection;
     private static SqlCommand cmd;
     private static SqlDataReader dr;
