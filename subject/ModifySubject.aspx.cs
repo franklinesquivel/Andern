@@ -11,7 +11,7 @@ public partial class subject_ModifySubject : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //Verificamos si la url tiene el id
-        if (Request.QueryString["idSubject"] != null)
+        if (Request.QueryString["idSubject"] != null && (!Page.IsPostBack))
         {
             //Procedemos a obtener la información
             ArrayList data = DbConnection.getDbData("SELECT * FROM Subject WHERE idSubject = '"+ Request.QueryString["idSubject"] + "'");
@@ -100,18 +100,17 @@ public partial class subject_ModifySubject : System.Web.UI.Page
                 } //Con las líneas anteriores decimos que tipo de materia registraremos
                 Subject newSubject = new Subject(idSubject, name, uv, prerequisite, description, course, type);
 
-                //if (!newSubject.VerifySubjet())
-                //{//Materia existe
-                //    if (newSubject.Update())
-                //    {//Materia registrada
-                //        result.InnerHtml = "<h1>Materia modificada con exito</h1>";
-                //    }
-                //}
-                //else
-                //{//Materia no existe
-                //    result.InnerHtml = "<h1>Lo sentimos ha ocurrido un error</h1>";
-                //}
-                result.InnerHtml = name;
+                if (!newSubject.VerifySubjet())
+                {//Materia existe
+                    if (newSubject.Update())
+                    {//Materia registrada
+                        result.InnerHtml = "<h1>Materia modificada con exito</h1>";
+                    }
+                }
+                else
+                {//Materia no existe
+                    result.InnerHtml = "<h1>Lo sentimos ha ocurrido un error</h1>";
+                }
             }
             catch (Exception ERROR)
             {

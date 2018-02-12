@@ -74,9 +74,6 @@
                     </div>
                     <div class="row input-field">
                         <asp:ListBox ID="cmbPre" runat="server">
-                            <asp:ListItem value="0" Selected="True">Bachillerato</asp:ListItem>
-                            <asp:ListItem value="2">Como</asp:ListItem>
-                            <asp:ListItem value="3">Estas?</asp:ListItem>
                         </asp:ListBox>
                         <label>Prerrequisitos</label>
                         <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator5" 

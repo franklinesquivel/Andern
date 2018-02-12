@@ -48,7 +48,7 @@ public class SubjectModel
         string sql = "";
         if (prerequisite == "0")
         {
-            sql = "UPDATE Subject SET name='"+name+"', uv ="+ uv +", description='"+description+"', course="+course+", type='"+type+"' WHERE idSubject = '"+ idSubject +"'";
+            sql = "UPDATE Subject SET name='"+name+"', uv ="+ uv +", prerequisite='NULL', description='"+description+"', course="+course+", type='"+type+"' WHERE idSubject = '"+ idSubject +"'";
         }
         else
         {

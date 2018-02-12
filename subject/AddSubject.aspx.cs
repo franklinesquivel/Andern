@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,9 @@ public partial class subject_AddSubject : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!Page.IsPostBack) {
+            addPrerequiste();//Agregamos items al listbox
+        }
     }
 
     protected void CustomValidator1_ServerValidate1(object source, ServerValidateEventArgs args)
@@ -37,8 +40,8 @@ public partial class subject_AddSubject : System.Web.UI.Page
         //Se guardan los valores del form y se aplican ciertos métodos para evitar errores
         if (Page.IsValid)
         {
-            string idSubject, name, description;
-            int uv, course, prerequisite;
+            string idSubject, name, description, prerequisite;
+            int uv, course;
             try
             {
                 idSubject = txtCode.Text.Trim().ToUpper();
@@ -46,7 +49,7 @@ public partial class subject_AddSubject : System.Web.UI.Page
                 description = txtDescription.Value.Trim();
                 uv = int.Parse(txtUV.Text);
                 course = int.Parse(txtSemester.Text);
-                prerequisite = int.Parse(cmbPre.SelectedValue);
+                prerequisite = cmbPre.SelectedValue;
 
                 char type = 'T';
                 if (chkLab.Checked)
@@ -74,4 +77,16 @@ public partial class subject_AddSubject : System.Web.UI.Page
         }
         
     }//Fin método btnSend_Click
+
+    protected void addPrerequiste()
+    {//Añade las materias al listBox
+        ArrayList subjects = DbConnection.getDbData("SELECT name, idSubject FROM Subject");
+        cmbPre.Items.Add(new ListItem("Bachillerato", "0"));//Agregamos Bachillerato como primer Item
+
+        foreach (ArrayList row in subjects)
+        {//Agregamos los item al listBox
+            cmbPre.Items.Add(new ListItem((string)row[0], (string)row[1]));
+        }
+    }
+
 }
