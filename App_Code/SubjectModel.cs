@@ -63,7 +63,7 @@ public class SubjectModel
     public static String subjectType(String _idSubject)
     {
         ArrayList aux = DbConnection.getDbData("SELECT type FROM Subject WHERE idSubject = '" + _idSubject + "'");
-        return (String)aux[0];
+        return aux.Capacity > 0 ? (String)aux[0] : null;
     }
 
     public bool Update(Subject subject)

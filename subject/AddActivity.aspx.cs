@@ -18,16 +18,19 @@ public partial class subject_AddActivity : System.Web.UI.Page
             rdbSubjectType.SelectedIndex = 0;
             rdbL.Enabled = false;
             rdbT.Enabled = false;
-        }
 
-        if(Request.QueryString["idSubject"] != null)
-        {
-            ddlSubject.SelectedValue = Request.QueryString["idSubject"];
-
-            if (SubjectModel.subjectType(Request.QueryString["idSubject"]) == "L")
+            if (Request.QueryString["idSubject"] != null)
             {
-                rdbL.Enabled = true;
-                rdbT.Enabled = true;
+                if (SubjectModel.subjectType(Request.QueryString["idSubject"]) == "L")
+                {
+                    ddlSubject.SelectedValue = Request.QueryString["idSubject"];
+                    rdbL.Enabled = true;
+                    rdbT.Enabled = true;
+                }
+                else if (SubjectModel.subjectType(Request.QueryString["idSubject"]) == null)
+                {
+
+                }
             }
         }
     }
