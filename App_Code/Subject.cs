@@ -152,5 +152,17 @@ public class Subject
         return nuevoModelo.Delete(this.idSubject);
     }
 
+    public bool VerifyActivities()
+    {
+        SubjectModel nuevoModel = new SubjectModel();
+        return nuevoModel.VerifyActivities(this.idSubject);
+    }
+
+    public bool verifyPrerequisite()
+    {
+        SubjectModel nuevoModel = new SubjectModel();
+        return nuevoModel.verifyPrerequisite(this.idSubject);
+    }
+
     //FIN MÉTODOS
 } //Fin clase

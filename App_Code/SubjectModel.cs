@@ -60,6 +60,18 @@ public class SubjectModel
         return (int.Parse(DbConnection.MakeScalar(sql)) > 0) ? false : true;
     }
 
+    public bool VerifyActivities(string idSubject)
+    { //Verifica que la materia no posea acrividades (Utilizada en el proceso de eliminar). True = No posee, False = Posee
+        string sql = "SELECT COUNT(*) FROM Activity WHERE idSubject ='" + idSubject + "'";
+        return (int.Parse(DbConnection.MakeScalar(sql)) > 0 ? false : true);
+    }
+
+    public bool verifyPrerequisite(string idSubject)
+    {
+        string sql = "SELECT COUNT(*) FROM Subject WHERE prerequisite ='" + idSubject + "'";
+        return (int.Parse(DbConnection.MakeScalar(sql)) > 0 ? false : true);
+    }
+
     public static String subjectType(String _idSubject)
     {
         ArrayList aux = DbConnection.getDbData("SELECT type FROM Subject WHERE idSubject = '" + _idSubject + "'");

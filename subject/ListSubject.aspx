@@ -30,6 +30,34 @@
 
         </form>
     </main>
+    <div id="mdlDelete" class="modal">
+        <div class="modal-content">
+          <h4 class="center-align">Eliminación de materia</h4>
+          <p class="center-align">¿Desea eliminar esta materia?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="btnDelete">Aceptar</a>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var id = null;
+            $(document).on('click', '#linkDelete', function () {
+                openMdlDelete();
+                id = $(this).attr("idSubject");
+            });
+            function openMdlDelete() {
+                $('.modal').modal();
+                $('#mdlDelete').modal('open');
+            }
 
+            $(document).on('click', '#mdlDelete', function () {
+                if ($(event.target).attr("id") === $("#mdlDelete #btnDelete").attr("id") && id != null) {
+                    location.href = "/subject/DeleteSubject.aspx?idSubject=" + id + "";
+                }
+            });
+        })()
+    </script>
 </body>
 </html>

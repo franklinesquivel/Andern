@@ -67,6 +67,7 @@ public partial class subject_ModifySubject : System.Web.UI.Page
             txtUV.Text = (string)row[1];
             txtDescription.InnerText = (string)row[4];
             chkLab.Checked = (((string)row[6]).Equals("T") ? false : true);
+            chkLab.Enabled = (((string)row[6]).Equals("T") ? true : false);
 
             //Buscamos y seleccionamos el prerequisite de dicha materia
             if (cmbPre.Items.FindByValue((string)row[2]) != null)
@@ -109,6 +110,7 @@ public partial class subject_ModifySubject : System.Web.UI.Page
                 if (chkLab.Checked)
                 {
                     type = 'L';
+                    chkLab.Enabled = true;
                 } //Con las líneas anteriores decimos que tipo de materia registraremos
 
                 newSubject = new Subject(Request.QueryString["idSubject"], name, uv, prerequisite, description, course, type);

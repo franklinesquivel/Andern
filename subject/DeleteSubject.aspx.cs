@@ -12,11 +12,24 @@ public partial class subject_DeleteSubjectt : System.Web.UI.Page
         if (Request.QueryString["idSubject"] != null) //Verificamos que el parametro este presente en la url
         {
             Subject newSubject = new Subject(Request.QueryString["idSubject"]);
-            if (!newSubject.VerifySubjet()) 
+            if (!newSubject.VerifySubjet())
             {//Verificamos que la materia exista
-                newSubject.Delete();
+                if (newSubject.VerifyActivities() && newSubject.verifyPrerequisite())
+                {//Se verifica que la materia no posea actividades asignadas
+                    if (newSubject.Delete())
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('Materia eliminada con exito', 1000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('La materia posee actividades o es un prerrequisto. No se puede eliminar', 1000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+                }
             }
         }
-        Response.Redirect("ListSubject.aspx");
+        else
+        {
+            Response.Redirect("ListSubject.aspx");
+        }
     }
 }
