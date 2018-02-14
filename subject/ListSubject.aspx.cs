@@ -36,7 +36,7 @@ public partial class subject_ListSubject : System.Web.UI.Page
             htmlTable.AppendLine("<td>N° " + (String) row[5] + "</td>");
             htmlTable.AppendLine("<td>" + (((String)row[6]).Equals("T") ? "Teórica" : "Práctica") + "</td>");
             htmlTable.AppendLine("<td>" + (String) row[1] + "</td>");
-            htmlTable.AppendLine("<td>" + (((String)row[2]).Equals("") ? "BACH" : (String)row[6]) + "</td>");
+            htmlTable.AppendLine("<td>" + (((String)row[2]).Equals("") ? "BACH" : (String)row[2]) + "</td>");
             htmlTable.AppendLine("<td><a href='/subject/ModifySubject.aspx?idSubject=" + (String)row[0] + "'>Modificar</a></td>");
             htmlTable.AppendLine("<td><a href='/subject/addActivity.aspx?idSubject=" + (String)row[0] + "'>Añadir Actividad</a></td>");
             htmlTable.AppendLine("<td><a href='/subject/DeleteSubject.aspx?idSubject=" + (String)row[0] + "'>Eliminar</a></td>");

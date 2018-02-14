@@ -57,22 +57,23 @@ public partial class subject_AddSubject : System.Web.UI.Page
                     type = 'L';
                 } //Con las líneas anteriores decimos que tipo de materia registraremos
                 Subject newSubject = new Subject(idSubject, name, uv, prerequisite, description, course, type);
-
+                string toast = "";
                 if (newSubject.VerifySubjet())
                 {//Materia no existe
                     if (newSubject.Insert())
                     {//Materia registrada
-                        result.InnerHtml = "<h1>Materia Registrada con exito</h1>";
+                        toast = "Materialize.toast('Materia registrada con exito', 1000,'', function(){location.href = '/subject/AddSubject.aspx'});";
                     }
                 }
                 else
                 {//Materia ya existe
-                    result.InnerHtml = "<h1>Materia ya existe</h1>";
+                    toast = "Materialize.toast('Dicho código de ya existe :(', 2000);";
                 }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "cofirmUpdate", toast, true);
             }
             catch (Exception ERROR)
             {
-                result.InnerHtml = "<h1>ERROR</h1>";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "cofirmUpdate", "Materialize.toast('Error, intentalo más tarde :(', 2000);", true);
             }
         }
         
@@ -87,6 +88,7 @@ public partial class subject_AddSubject : System.Web.UI.Page
         {//Agregamos los item al listBox
             cmbPre.Items.Add(new ListItem((string)row[0], (string)row[1]));
         }
+        cmbPre.Items.FindByValue("0").Selected = true; //Seleccionamos bachillerato
     }
 
 }

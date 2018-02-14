@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -17,18 +19,39 @@ public class SubjectModel
         //
     }
 
-    public bool Insert(string idSubject, string name, int uv, string prerequisite, string description, int course, char type)
+    public bool Insert(Subject subject)
     {
-        string sql = "";
-        if (prerequisite == "0")
+        string query = "";
+        if (subject.Prerequisite == "0")
         {
-            sql = "INSERT INTO Subject(idSubject, name, uv, description, course, type) VALUES('" + idSubject + "', '" + name + "', " + uv + ", '" + description + "', " + course + ", '" + type + "')";
+            query = "INSERT INTO Subject(idSubject, name, uv, description, course, type) VALUES(@idSubject, @name, @uv, @description, @course, @type)";
         }
         else
         {
-            sql = "INSERT INTO Subject(idSubject, name, uv, prerequisite, description, course, type) VALUES('" + idSubject + "', '" + name + "', " + uv + ", '" + prerequisite + "', '" + description + "', " + course + ", '" + type + "')";
+            query = "INSERT INTO Subject(idSubject, name, uv, prerequisite, description, course, type) VALUES(@idSubject, @name, @uv, @prerequisite, @description, @course, @type)";
+        } 
+
+        SqlCommand cmd = DbConnection.getCommand(query); //Ingresamos la query
+        if (subject.Prerequisite != "0")
+        {
+            cmd.Parameters.Add("@prerequisite", SqlDbType.VarChar);
+            cmd.Parameters["@prerequisite"].Value = subject.Prerequisite;
         }
-        return DbConnection.MakeQuery(sql); 
+        cmd.Parameters.Add("@idSubject", SqlDbType.VarChar);
+        cmd.Parameters.Add("@uv", SqlDbType.Int);
+        cmd.Parameters.Add("@name", SqlDbType.VarChar);
+        cmd.Parameters.Add("@description", SqlDbType.VarChar);
+        cmd.Parameters.Add("@course", SqlDbType.Int);
+        cmd.Parameters.Add("@type", SqlDbType.VarChar);
+
+        cmd.Parameters["@idSubject"].Value = subject.IdSubject;
+        cmd.Parameters["@uv"].Value = subject.Uv;
+        cmd.Parameters["@name"].Value = subject.Name;
+        cmd.Parameters["@description"].Value = subject.Description;
+        cmd.Parameters["@course"].Value = subject.Course;
+        cmd.Parameters["@type"].Value = subject.Type;
+
+        return DbConnection.executeCmdIUD(cmd); 
     }
 
     public bool Verify(string idSubject)
@@ -43,23 +66,39 @@ public class SubjectModel
         return (String)aux[0];
     }
 
-    public bool Update(string idSubject, string name, int uv, string prerequisite, string description, int course, char type)
+    public bool Update(Subject subject)
     {
-        string sql = "";
-        if (prerequisite == "0")
+        SqlCommand cmd = DbConnection.getCommand("UPDATE Subject SET name=@name, uv=@uv, prerequisite=@prerequisite, description=@description, course=@course, type=@type WHERE idSubject = @idSubject");
+        
+        cmd.Parameters.Add("@prerequisite", SqlDbType.VarChar);
+        cmd.Parameters.Add("@idSubject", SqlDbType.VarChar);
+        cmd.Parameters.Add("@uv", SqlDbType.Int);
+        cmd.Parameters.Add("@name", SqlDbType.VarChar);
+        cmd.Parameters.Add("@description", SqlDbType.VarChar);
+        cmd.Parameters.Add("@course", SqlDbType.Int);
+        cmd.Parameters.Add("@type", SqlDbType.VarChar);
+
+        if (subject.Prerequisite == "0")
         {
-            sql = "UPDATE Subject SET name='"+name+"', uv ="+ uv +", prerequisite='NULL', description='"+description+"', course="+course+", type='"+type+"' WHERE idSubject = '"+ idSubject +"'";
+            cmd.Parameters["@prerequisite"].Value = DBNull.Value;
+        }else {
+            cmd.Parameters["@prerequisite"].Value = subject.Prerequisite;
         }
-        else
-        {
-            sql = "UPDATE Subject SET name='" + name + "', uv =" + uv + ", prerequisite='"+prerequisite+"' , description='" + description + "', course=" + course + ", type='" + type + "' WHERE idSubject = '" + idSubject + "'";
-        }
-        return DbConnection.MakeQuery(sql);
+        cmd.Parameters["@idSubject"].Value = subject.IdSubject;
+        cmd.Parameters["@uv"].Value = subject.Uv;
+        cmd.Parameters["@name"].Value = subject.Name;
+        cmd.Parameters["@description"].Value = subject.Description;
+        cmd.Parameters["@course"].Value = subject.Course;
+        cmd.Parameters["@type"].Value = subject.Type;
+        return DbConnection.executeCmdIUD(cmd);
     }
 
     public bool Delete(string idSubject)
     {
-        string sql = "DELETE FROM Subject WHERE idSubject ='"+ idSubject +"'";
-        return DbConnection.MakeQuery(sql);
+        string query = "DELETE FROM Subject WHERE idSubject=@idSubject";
+        SqlCommand cmd = DbConnection.getCommand(query);
+        cmd.Parameters.Add("@idSubject", SqlDbType.VarChar);
+        cmd.Parameters["@idSubject"].Value = idSubject;
+        return DbConnection.executeCmdIUD(cmd);
     }
 }

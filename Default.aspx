@@ -59,5 +59,17 @@
         </ul>
   </div>
 
+   <main class="container">
+       <div class="row">
+           <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1">
+               <h3 class="center deep-purple-text text-lighten-2">¿PILET?</h3>
+               <p class="flow-text ">El Programa de Integración Lineal de Estudios Técnicos (PILET) responde a las necesidades de mayor articulación entre la educación media técnica, los estudios técnicos superiores y la educación superior de ingeniería. Se pretende con él, desarrollar una modalidad de currículum continuo entre estos niveles para garantizar la calidad profesional y competitividad de los estudiantes.</p>
+           </div>
+           <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1">
+               <h3 class="center deep-purple-text text-lighten-2">Cambio de PENSUM</h3>
+               <p class="flow-text ">Con el plan 2015 muchos cambios sucediero. De objetivos a competencias, de escoger una rama (Programación o Redes) a ser una sola. Ante tal problemática nace Andern, un sistema donde se puede crear el nuevo PENSUM.</p>
+           </div>
+       </div>
+   </main>
 </body>
 </html>

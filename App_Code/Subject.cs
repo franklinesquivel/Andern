@@ -114,15 +114,24 @@ public class Subject
     }
 
     public Subject(string idSubject)
-    {
+    {//CONSTRUCTO V2
         this.idSubject = idSubject;
+    }
+    public void SubjectSetProperties(string name, int uv, string prerequisite, string description, int course, char type)
+    {
+        this.name = name;
+        this.uv = uv;
+        this.prerequisite = prerequisite;
+        this.description = description;
+        this.course = course;
+        this.type = type;
     }
 
     //INICIO DE MÉTODOS
     public bool Insert()
     {
         SubjectModel nuevoModelo = new SubjectModel();
-        return nuevoModelo.Insert(this.idSubject, this.name, this.uv, this.prerequisite, this.description, this.course, this.type);
+        return nuevoModelo.Insert(this);
     }
 
     public bool VerifySubjet() //Verifica que la nueva materia a ingresar no este registrada
@@ -134,7 +143,7 @@ public class Subject
     public bool Update()
     {
         SubjectModel nuevoModelo = new SubjectModel();
-        return nuevoModelo.Update(this.idSubject, this.name, this.uv, this.prerequisite, this.description, this.course, this.type);
+        return nuevoModelo.Update(this);
     }
 
     public bool Delete()

@@ -8,17 +8,32 @@ using System.Web.UI.WebControls;
 
 public partial class subject_ModifySubject : System.Web.UI.Page
 {
+    private Subject newSubject;
     protected void Page_Load(object sender, EventArgs e)
     {
-        //Verificamos si la url tiene el id
+        
+        //Verificamos que dicho id exista en la BDD y si existe en la URL
         if (Request.QueryString["idSubject"] != null && (!Page.IsPostBack))
         {
-            //Procedemos a obtener la información
-            ArrayList data = DbConnection.getDbData("SELECT * FROM Subject WHERE idSubject = '"+ Request.QueryString["idSubject"] + "'");
+            newSubject = new Subject(Request.QueryString["idSubject"]); //Inicializamos el objeto
+            if (!newSubject.VerifySubjet())
+            {
+                //Procedemos a obtener la información
+                ArrayList data = DbConnection.getDbData("SELECT * FROM Subject WHERE idSubject = '" + newSubject.IdSubject + "'");
 
-            //Recorremos la informacion y la agregamos a los campos del formulario
-            addPrerequiste(); //Agregamos las materias en cmbPre
-            setData(data);
+                //Recorremos la informacion y la agregamos a los campos del formulario
+                addPrerequiste(); //Agregamos las materias en cmbPre
+                setData(data);
+                //Refrescamos los select para cargue la materia de prerrequisto
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "refreshSelect", "$('select').material_select()", true);
+            } else {
+                Response.Redirect("ListSubject.aspx"); //Redireccionamos al listar materia
+            }
+        }else {
+            if (Request.QueryString["idSubject"] == null)
+            {
+                Response.Redirect("ListSubject.aspx"); //Redireccionamos al listar materia
+            }
         }
     }
 
@@ -54,10 +69,11 @@ public partial class subject_ModifySubject : System.Web.UI.Page
             chkLab.Checked = (((string)row[6]).Equals("T") ? false : true);
 
             //Buscamos y seleccionamos el prerequisite de dicha materia
-            if (cmbPre.Items.FindByValue((string)row[0]) != null)
+            if (cmbPre.Items.FindByValue((string)row[2]) != null)
             {
-                cmbPre.Items.FindByValue((string)row[0]).Selected = true; //Seleccionamos el item correspondiente
-            }else
+                cmbPre.Items.FindByValue((string)row[2]).Selected = true; //Seleccionamos el item correspondiente
+            }
+            else
             {
                 cmbPre.Items.FindByValue("0").Selected = true; //Seleccionamos bachillerato
             }
@@ -68,25 +84,21 @@ public partial class subject_ModifySubject : System.Web.UI.Page
     {//Añade las materias al listBox
         ArrayList subjects = DbConnection.getDbData("SELECT name, idSubject FROM Subject WHERE idSubject != '" + Request.QueryString["idSubject"] +"'");
         cmbPre.Items.Add(new ListItem("Bachillerato", "0"));//Agregamos Bachillerato como primer Item
-
         foreach (ArrayList row in subjects)
         {//Agregamos los item al listBox
             cmbPre.Items.Add(new ListItem((string)row[0], (string)row[1]));
         }
     }
 
-
-
     protected void btnSend_Click(object sender, EventArgs e)
     {
         //Se guardan los valores del form y se aplican ciertos métodos para evitar errores
-        if (Page.IsValid && (IsPostBack))
+        if (Page.IsValid)
         {
-            string idSubject, name, description, prerequisite;
+            string name, description, prerequisite;
             int uv, course;
             try
             {
-                idSubject = Request.QueryString["idSubject"];
                 name = txtName.Text.Trim();
                 description = txtDescription.Value.Trim();
                 uv = int.Parse(txtUV.Text);
@@ -98,23 +110,21 @@ public partial class subject_ModifySubject : System.Web.UI.Page
                 {
                     type = 'L';
                 } //Con las líneas anteriores decimos que tipo de materia registraremos
-                Subject newSubject = new Subject(idSubject, name, uv, prerequisite, description, course, type);
 
-                if (!newSubject.VerifySubjet())
-                {//Materia existe
-                    if (newSubject.Update())
-                    {//Materia registrada
-                        result.InnerHtml = "<h1>Materia modificada con exito</h1>";
-                    }
+                newSubject = new Subject(Request.QueryString["idSubject"], name, uv, prerequisite, description, course, type);
+                String toast = "";
+
+                if (newSubject.Update())
+                {//Materia Actualizada
+                    toast = "Materialize.toast('Actualización exitosa', 1000, '', function(){location.href = '/subject/ListSubject.aspx'});";
+                }else {
+                    toast = "Materialize.toast('Update falla', 2000);";
                 }
-                else
-                {//Materia no existe
-                    result.InnerHtml = "<h1>Lo sentimos ha ocurrido un error</h1>";
-                }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "cofirmUpdate", toast, true);
             }
             catch (Exception ERROR)
             {
-                result.InnerHtml = "<h1>ERROR</h1>";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('Ha ocurrido un error :(', 2000);", true);
             }
         }
     }

@@ -28,27 +28,28 @@
             <form id="form1" runat="server">
                 <div class="col l6 m8 s10 offset-l3 offset-m2 offset-s1">
                     <div class="row s12 center-align">
-                        <blockquote> <h4>Registrar Materia.</h4> </blockquote>
-                    </div>
-                    <div class="row s12  red accent-4">
-                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="List" ForeColor="white"/>
+                        <h3 class="center deep-purple-text text-lighten-2">Registrar Materia</h3>
                     </div>
                     <div class="row input-field">
                         <label for="txtCode">Código de la materia</label>
                         <asp:TextBox runat="server" ID="txtCode"></asp:TextBox>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator1" 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
                             runat="server" 
+                            CssClass="error-tag"
+                            Display="Dynamic"
                             ControlToValidate="txtCode"
                             ErrorMessage="Ingrese un código"></asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
                             ErrorMessage="El formato del código ingresado es incorrecto" ControlToValidate="txtCode"
-                            ValidationExpression="^([A-Z]|[a-z]){3}[0-9]{3}$" Display="None">
+                            ValidationExpression="^([A-Z]|[a-z]){3}[0-9]{3}$" CssClass="error-tag"
+                            Display="Dynamic">
                         </asp:RegularExpressionValidator>
                     </div>
                     <div class="row input-field">
                         <label for="txtName">Nombre de la materia</label>
                         <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator2" 
+                        <asp:RequiredFieldValidator  CssClass="error-tag"
+                            Display="Dynamic" ID="RequiredFieldValidator2" 
                             runat="server" 
                             ControlToValidate="txtName"
                             ErrorMessage="Ingrese un nombre"></asp:RequiredFieldValidator>
@@ -56,7 +57,8 @@
                     <div class="row input-field">
                         <label for="txtSemester">Nº Ciclo</label>
                         <asp:TextBox runat="server" ID="txtSemester" TextMode="Number"></asp:TextBox>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator3" 
+                        <asp:RequiredFieldValidator CssClass="error-tag"
+                            Display="Dynamic" ID="RequiredFieldValidator3" 
                             runat="server" 
                             ControlToValidate="txtSemester"
                             ErrorMessage="Ingrese un ciclo"></asp:RequiredFieldValidator>
@@ -64,19 +66,22 @@
                     <div class="row input-field">
                         <label for="txtUV">Unidades Valorativas (UV)</label>
                         <asp:TextBox runat="server" ID="txtUV" TextMode="Number"></asp:TextBox>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator4" 
+                        <asp:RequiredFieldValidator CssClass="error-tag"
+                            Display="Dynamic" ID="RequiredFieldValidator4" 
                             runat="server" 
                             ControlToValidate="txtUV"
                             ErrorMessage="Ingrese la cantidad de UV"></asp:RequiredFieldValidator>
                         <asp:CustomValidator ID="CustomValidator1" 
-                            runat="server" ErrorMessage="Según el tipo de materia las UV no son válidas" Display="None" Text="Según el tipo de materia las UV no son válidas"
+                            runat="server" ErrorMessage="Según el tipo de materia las UV no son válidas" CssClass="error-tag"
+                            Display="Dynamic" Text="Según el tipo de materia las UV no son válidas"
                             OnServerValidate="CustomValidator1_ServerValidate1" ControlToValidate="txtUV"></asp:CustomValidator>
                     </div>
                     <div class="row input-field">
                         <asp:ListBox ID="cmbPre" runat="server">
                         </asp:ListBox>
                         <label>Prerrequisitos</label>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator5" 
+                        <asp:RequiredFieldValidator  CssClass="error-tag"
+                            Display="Dynamic" ID="RequiredFieldValidator5" 
                             runat="server" 
                             ControlToValidate="cmbPre"
                             ErrorMessage="Escoga uno o más prerrequisitos"></asp:RequiredFieldValidator>
@@ -86,7 +91,8 @@
                             class="materialize-textarea">
                         </textarea>
                         <label for="txtDescription">Descripcion</label>
-                        <asp:RequiredFieldValidator  Display="None" ID="RequiredFieldValidator6" 
+                        <asp:RequiredFieldValidator  CssClass="error-tag"
+                            Display="Dynamic" ID="RequiredFieldValidator6" 
                             runat="server" 
                             ControlToValidate="txtDescription"
                             ErrorMessage="Ingrese una descripción"></asp:RequiredFieldValidator>
@@ -102,9 +108,6 @@
                 
             </form>
         </div>
-        <div class="row" id="result" runat="server">   
-
-            </div>
     </div>
 </body>
 </html>
