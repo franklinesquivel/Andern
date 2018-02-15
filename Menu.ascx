@@ -37,11 +37,14 @@
 <ul id="dpdSubject" class="dropdown-content">
     <li><a href="/subject/AddSubject.aspx">Registrar <i class="material-icons left">add</i></a></li>
     <li><a href="/subject/ListSubject.aspx">Listar <i class="material-icons left">remove_red_eye</i></a></li>
-    <li><a href="/subject/UpdateSubject.aspx">Modificar <i class="material-icons left">edit</i></a></li>
 </ul>
 <nav>
-    <div class="nav-wrapper deep-purple darken-1">
-        <a href="#!" class="brand-logo">Logo</a>
+    <div class="nav-wrapper deep-purple darken-1" style="position: relative;">
+        <a href="#!" class="brand-logo">
+            <nav class="deep-purple darken-1" style="box-shadow: none;">
+                <img src="/img/logo.png" height="100%" style="margin-left: 100%;"/>
+            </nav>
+        </a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li id="liMenu" runat="server"><a href="/">Inicio <i class="material-icons left">home</i></a></li>

@@ -11,6 +11,7 @@
     <title>Proyecto Ändern - Listado de Materias</title>
     <link href="/css/materialize.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.ico"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -30,6 +31,7 @@
 
         </form>
     </main>
+
     <div id="mdlDelete" class="modal">
         <div class="modal-content">
           <h4 class="center-align">Eliminación de materia</h4>
@@ -40,6 +42,7 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="btnDelete">Aceptar</a>
         </div>
     </div>
+
     <script>
         (function () {
             var id = null;

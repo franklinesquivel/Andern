@@ -11,6 +11,7 @@
     <title>Proyecto Ändern</title>
     <link href="/css/materialize.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.ico"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -45,6 +46,7 @@
                 <asp:Label AssociatedControlID="ddlSubject" Text="Selecciona una materia" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="customDdlValue" runat="server"
                     InitialValue = "0"
+                    CssClass="error-tag"
                     ControlToValidate="ddlSubject"
                     ErrorMessage="Debes seleccionar una materia!"
                     Display="Dynamic">
@@ -81,12 +83,14 @@
                     runat="server">
                 </asp:RequiredFieldValidator>
                 <asp:CustomValidator ID="customPositive" runat="server"
+                    CssClass="error-tag"
                     OnServerValidate="positiveValidate"
                     ControlToValidate="txtPercentage"
                     Display="Dynamic"
                     ErrorMessage="Ingresa un valor positivo!">
                 </asp:CustomValidator>
                 <asp:CustomValidator ID="customPercentage" runat="server"
+                    CssClass="error-tag"
                     OnServerValidate="percentageValidate"
                     ControlToValidate="txtPercentage"
                     Display="Dynamic"
@@ -110,6 +114,7 @@
                     runat="server">
                 </asp:RequiredFieldValidator>
                 <asp:CustomValidator ID="customFileType" runat="server"
+                    CssClass="error-tag"
                     OnServerValidate="fileTypeValidate"
                     ControlToValidate="fucFile"
                     Display="Dynamic"
