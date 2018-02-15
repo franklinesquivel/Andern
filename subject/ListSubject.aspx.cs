@@ -12,6 +12,7 @@ public partial class subject_ListSubject : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Proceso de agregar la lista de materias a una tabla
         StringBuilder htmlTable = new StringBuilder();
         htmlTable.AppendLine("<table class='centered bordered col s10 offset-s1'>");
         htmlTable.AppendLine("<thead class='deep-purple lighten-1 white-text'>");
@@ -44,12 +45,26 @@ public partial class subject_ListSubject : System.Web.UI.Page
         }
         htmlTable.AppendLine("</tbody>");
         htmlTable.AppendLine("</table>");
-
         frmData.InnerHtml = htmlTable.ToString();
     }
 
-    protected void btnAcceptDelete_Click1(object sender, EventArgs e)
-    {
 
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        Subject newSubject = new Subject(Request.Form["txtidSubject"]);
+        if (!newSubject.VerifySubjet())
+        {//Verificamos que la materia exista
+            if (newSubject.VerifyActivities() && newSubject.verifyPrerequisite())
+            {//Se verifica que la materia no posea actividades asignadas
+                if (newSubject.Delete())
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('Materia eliminada con exito', 2000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('La materia posee actividades o es un prerrequisto. No se puede eliminar', 1000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+            }
+        }
     }
 }

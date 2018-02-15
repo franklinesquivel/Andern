@@ -27,39 +27,39 @@
     <h3 class="center deep-purple-text text-lighten-2">Listado de Materias</h3>
     <br />
     <main id="mainCont" class="" runat="server">
-        <form id="frmData" class="row" runat="server">
+        <div id="frmData" class="row" runat="server">
 
-        </form>
+        </div>
     </main>
 
-    <div id="mdlDelete" class="modal">
-        <div class="modal-content">
-          <h4 class="center-align">Eliminación de materia</h4>
-          <p class="center-align">¿Desea eliminar esta materia?</p>
+    <form runat="server" id="frmDelete">
+        <div id="mdlDelete" class="modal">
+            <div class="modal-content">
+                <h4 class="center-align">Eliminación de materia</h4>
+                <p class="center-align">¿Desea eliminar esta materia?</p>
+                <input type="hidden" value="" runat="server" id="txtidSubject"/>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                <asp:Button ID="btnDelete" OnClick="btnDelete_Click" CssClass="modal-action modal-close waves-effect waves-green btn-flat" runat="server" Text="Aceptar" /> 
+            </div>
         </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="btnDelete">Aceptar</a>
-        </div>
-    </div>
+    </form>
+    
+    
 
     <script>
         (function () {
             var id = null;
             $(document).on('click', '#linkDelete', function () {
-                openMdlDelete();
                 id = $(this).attr("idSubject");
+                openMdlDelete();
             });
             function openMdlDelete() {
                 $('.modal').modal();
                 $('#mdlDelete').modal('open');
+                $("#txtidSubject").val(id);
             }
-
-            $(document).on('click', '#mdlDelete', function () {
-                if ($(event.target).attr("id") === $("#mdlDelete #btnDelete").attr("id") && id != null) {
-                    location.href = "/subject/DeleteSubject.aspx?idSubject=" + id + "";
-                }
-            });
         })()
     </script>
 </body>
