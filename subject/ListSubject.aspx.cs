@@ -58,12 +58,12 @@ public partial class subject_ListSubject : System.Web.UI.Page
             {//Se verifica que la materia no posea actividades asignadas
                 if (newSubject.Delete())
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('Materia eliminada con exito', 2000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('Materia eliminada con exito', 1500, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
                 }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('La materia posee actividades o es un prerrequisto. No se puede eliminar', 1000, '', function(){location.href = '/subject/ListSubject.aspx'});", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "errorMessage", "Materialize.toast('La materia posee actividades o es un prerrequisto. No se puede eliminar', 1500);", true);
             }
         }
     }
