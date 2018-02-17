@@ -34,6 +34,7 @@
     <li><a href="/subject/AddSubject.aspx">Registrar <i class="material-icons left">add</i></a></li>
     <li><a href="/subject/ListSubject.aspx">Listar <i class="material-icons left">remove_red_eye</i></a></li>
 </ul>
+
 <nav>
     <div class="nav-wrapper deep-purple darken-1" style="position: relative;">
         <a href="#!" class="brand-logo">
@@ -41,18 +42,10 @@
                 <img src="/img/logo.png" height="100%" style="margin-left: 100%;"/>
             </nav>
         </a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
+        <ul class="right">
             <li id="liMenu" runat="server"><a href="/">Inicio <i class="material-icons left">home</i></a></li>
             <li id="liSubject" runat="server"><a class="dropdown-button" data-activates="dpdSubject">Materias <i class="material-icons left">library_books</i></a></li>
             <li id="liAddActivity" runat="server"><a href="/subject/AddActivity.aspx">Registro de actividades <i class="material-icons left">timeline</i></a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-            <li class="active"><a href="/">Inicio <i class="material-icons">home</i></a></li>
-            <li><a href="/subject/AddSubject.aspx">Registro de materias <i class="material-icons">add</i></a></li>
-            <li><a href="/subject/ListSubject.aspx">Lista de materias <i class="material-icons">list</i></a></li>
-            <li><a href="/subject/AddActivity.aspx">Registro de actividades <i class="material-icons">schedule</i></a></li>
-            
         </ul>
     </div>
 </nav>
