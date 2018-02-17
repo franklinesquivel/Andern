@@ -104,17 +104,24 @@ public partial class subject_AddActivity : System.Web.UI.Page
     {
         if(ddlSubject.SelectedIndex != 0)
         {
-            ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "' AND idType = '" + rdbSubjectType.SelectedValue + "';");
-            double auxP = 0;
-            double.TryParse((String)auxPA[0], out auxP);
-            lblPercentage.Text = "Porcentaje de la actividad [Disponible: " + (100 - (auxP * 100)) + "%].";
-
             if (SubjectModel.subjectType(ddlSubject.SelectedValue) == "L")
             {
                 rdbL.Enabled = true;
                 rdbT.Enabled = true;
             }
-        }else
+            else
+            {
+                rdbSubjectType.SelectedIndex = 0;
+                rdbL.Enabled = false;
+                rdbT.Enabled = false;
+            }
+
+            ArrayList auxPA = DbConnection.getDbData("SELECT SUM(percentage) FROM Activity WHERE idSubject = '" + ddlSubject.SelectedValue + "' AND idType = '" + rdbSubjectType.SelectedValue + "';");
+            double auxP = 0;
+            double.TryParse((String)auxPA[0], out auxP);
+            lblPercentage.Text = "Porcentaje de la actividad [Disponible: " + (100 - (auxP * 100)) + "%].";
+        }
+        else
         {
             rdbSubjectType.SelectedIndex = 0;
             rdbL.Enabled = false;
