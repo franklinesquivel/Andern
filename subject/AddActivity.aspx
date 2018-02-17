@@ -42,7 +42,7 @@
                     runat="server" >
                     <asp:ListItem Text="[Materia]" Value="0" />
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="dsSubject" runat="server" ConnectionString="<%$ ConnectionStrings:AndernConnectionString %>" SelectCommand="SELECT idSubject, Concat('[', idSubject, '] - ', name) as cmbText FROM Subject"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="dsSubject" runat="server" ConnectionString="<%$ ConnectionStrings:Andern_CS %>" SelectCommand="SELECT idSubject, Concat('[', idSubject, '] - ', name) as cmbText FROM Subject"></asp:SqlDataSource>
                 <asp:Label AssociatedControlID="ddlSubject" Text="Selecciona una materia" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="customDdlValue" runat="server"
                     InitialValue = "0"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -11,7 +12,8 @@ using System.Web;
 /// </summary>
 public class DbConnection
 {
-    private static string connectionString = "Data Source=DESKTOP-2MTLJ1V;Initial Catalog=Andern;Integrated Security=True";
+    private static ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["Andern_CS"];
+    private static string connectionString = mySetting.ConnectionString;
     private static SqlConnection connection;
     private static SqlCommand cmd;
     private static SqlDataReader dr;

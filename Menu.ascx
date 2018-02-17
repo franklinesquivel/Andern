@@ -4,10 +4,6 @@
     private int actualPage;
     public int ActualPage
     {
-        get
-        {
-            return actualPage;
-        }
         set
         {
             actualPage = value;
@@ -56,7 +52,6 @@
             <li><a href="/subject/AddSubject.aspx">Registro de materias <i class="material-icons">add</i></a></li>
             <li><a href="/subject/ListSubject.aspx">Lista de materias <i class="material-icons">list</i></a></li>
             <li><a href="/subject/AddActivity.aspx">Registro de actividades <i class="material-icons">schedule</i></a></li>
-            <li><%--<a class="dropdown-button" href="#!" data-activates="dropdown1">dropdown<i class="material-icons right">arrow_drop_down</i></a>--%></li>
             
         </ul>
     </div>

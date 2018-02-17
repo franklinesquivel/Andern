@@ -27,10 +27,6 @@ public partial class subject_AddActivity : System.Web.UI.Page
                     rdbL.Enabled = true;
                     rdbT.Enabled = true;
                 }
-                else if (SubjectModel.subjectType(Request.QueryString["idSubject"]) == null)
-                {
-
-                }
             }
         }
     }
